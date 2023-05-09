@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+
+{% block title %}
+CV Page
+{% endblock %}
+
+{% block content %}
+{% if session["user_id"] %}
+
+<div class= "m-1"></div>
+<div class="row m-1 border border-dark border-4">
+  <div class="col-md-4  bg-dark bg-gradient text-white rounded-5">
+
+    <ul>
+  <li class=" text-center p-2" ><img
+  src="/uploads/{{data[0].img}}"
+  class="img-fluid mw-40 rounded-circle mx-auto" style="width: 70%;
+  height: auto;">
+{% if data %}
+</li>
+<hr class="hr hr-blurry my-4">
+<li class="pt-3 text-start"><ul><li>
+  <i class="fas fa-location-dot"></i> <b> {{data[0].adress}}</b>
+</li>
+<li>
+  <i class="fas fa-phone"></i> <b>{{data[0].full_mob}}</b>
+</li>
+<li>
+  <i class="fas fa-envelope"></i> <b>{{data[0].email}}</b>
+</li>
+</ul></li>
+  <hr class="hr hr-blurry my-4">
+  <li>
+    <h2 style="font-size: 1.5rem;">ABOUT ME:</h2>
+    <p class="p-2">{{data[0].about_me}}</p>
+  </li>
+  <hr class="hr hr-blurry my-4" >
+  <li>
+    <h2 style="font-size: 1.5rem;">PERSONAL DATA:</h2>
+    <ul>
+      <li>
+        Birthday: {{data[0].birthday}}
+      </li>
+      <li>
+        Nationality: {{data[0].nation}}
+      </li>
+      <li>
+        Marital status: {{data[0].family_status}}
+      </li>
+      <li>
+        Registration date: {{data[0].reg_data}}
+      </li>
+    </ul>
+  </li>
+  <hr class="hr hr-blurry my-4">
+  {%endif%}
+  {% if data10 %}
+  <li>
+    <h2 style="font-size: 1.5rem;">LANGUAGES:</h2>
+    <ul>
+      <li>
+        <dt>{{data10[0].lang}}</dt>
+      </li>
+      <li>
+        {{data10[0].level}} - {{data10[0].level_by}}
+      </li>
+
+    </ul>
+  </li>
+  <hr class="hr hr-blurry my-4">
+  {%endif%}
+  {% if data6 %}
+  <li>
+    <h2 style="font-size: 1.5rem;">HOBBIES:</h2>
+    <p class="p-2"> <dt>{{data6[0].hobby}}</dt></p>
+    <p>{{data6[0].about_hobby}}</p>
+    <p>{{data6[0].duration}}</p>
+  </li>
+  <hr class="hr hr-blurry my-4">
+  {%endif%}
+  {% if data7 %}
+  <li>
+    <h2 style="font-size: 1.5rem;">REFERENCES:</h2>
+    <p class="p-2"><dt>{{data7[0].ref_name}} from {{data7[0].company}}</dt></p>
+    <p>{{data7[0].email}}</p>
+    <p>{{data7[0].mob}}</p>
+  </li>
+  <hr class="hr hr-blurry my-4">
+  {%endif%}
+  {% if data11 %}
+  <li>
+    <h2 style="font-size: 1.5rem;">WEBSITE & SOCIAL LINKS:</h2>
+    <ul>
+
+      <li>
+        <i class="fas fa-globe"></i><a href="{{data11[0].web}}"> Web</a>
+      </li>
+      <li>
+      <i class="fab fa-facebook"></i><a href="{{data11[0].f_book}}"> Facebook</a>
+    </li>
+<li>
+  <i class="fab fa-twitter"></i><a href="{{data11[0].twiter}}"> Twitter</a>
+</li>
+<li>
+  <i class="fab fa-instagram"></i><a href="{{data11[0].instag}}"> Instagram</a>
+</li>
+
+  </ul>
+  </li>
+  <hr class="hr hr-blurry my-4">
+  <li>
+    <h2 style="font-size: 1.5rem;">ADITION DETALS:</h2>
+    <p class="p-2"> {{data11[0].add_info}}</p>
+  </li>
+  <hr class="hr hr-blurry my-4">
+  {% endif %}
+</ul>
+  </div>
+  <div class="col-md-8  bg-light bg-gradient  rounded-5">
+    {% if data %}
+      <div class="p-3">
+        <h1 style="font-size: 2.5rem;">{{data[0].first_name}} {{data[0].last_name}}</h1>
+  <p style="font-size: 1.7rem">{{data[0].gol_cv}}</p></li>
+      </div>
+    <ul>
+      {%endif%}
+      {% if data1 %}
+      <div style="background-color:#534c47; height:5px; width:100%;"class="mb-2"></div>
+
+      <li>
+      <h2 style="font-size: 1.5rem;">WORK EXPERIENCE:</h2>
+      {% for val in data1 %}
+      <dl class="row">
+        <dt class="col-sm-3">{{val.company}}
+        <p>{{val.comp_loc}}</p>
+        <p>{{val.start_date}} - {{val.end_date}}</p></dt>
+        <dd class="col-sm-9">{{val.position}}
+          {{val.about_work}} <p><a href="{{val.link_comp}}">More information</a></p></dd>
+      </dl>
+      <hr class="hr hr-blurry my-4">
+      {% endfor %}
+    </li>
+    {%endif%}
+    {% if data5 %}
+    <div style="background-color:#534c47; height:5px; width:100%;"class="mb-2"></div>
+
+    <li>
+      <h2 style="font-size: 1.5rem;">EDUCATION:</h2>
+
+      {% for val in data5 %}
+      <dl class="row">
+        <dt class="col-sm-3">{{val.school}}
+        <p>{{val.school_loc}}</p>
+        <p>{{val.start_date}} - {{val.end_date}}</p></dt>
+        <dd class="col-sm-9">{{val.grade}} {{val.type}}
+          {{val.about_edu}} <p><a href="{{val.link_edu}}">More information</a></p></dd>
+      </dl>
+      <hr class="hr hr-blurry my-4">
+      {% endfor %}
+    </li>
+    {%endif%}
+    {% if data2 %}
+    <div style="background-color:#534c47; height:5px; width:100%;"class="mb-2"></div>
+
+    <li>
+      <h2 style="font-size: 1.5rem;">PROJECTS:</h2>
+      {% for val in data2 %}
+      <dl class="row">
+        <dt class="col-sm-3">{{val.project}}
+        <p>{{val.project_loc}}</p>
+        <p>{{val.start_date}} - {{val.end_date}}</p></dt>
+        <dd class="col-sm-9">Type: {{val.type}}.
+          {{val.about_project}} <p><a href="{{val.link_project}}">More information</a></p></dd>
+      </dl>
+      <hr class="hr hr-blurry my-4">
+      {% endfor %}
+    </li>
+    {%endif%}
+    {% if data4 %}
+    <div style="background-color:#534c47; height:5px; width:100%;" class="mb-2"></div>
+
+    <li>
+      <h2 style="font-size: 1.5rem;">SKILLS:</h2>
+
+      {% for val in data4 %}
+      <dl class="row">
+        <dt class="col-sm-3">{{val.skill}}
+        <p>{{val.level}}</p>
+        <dd class="col-sm-9"> {{val.about_skill}} </dd>
+      </dl>
+    </li>
+    <hr class="hr hr-blurry my-4">
+    {% endfor %}
+    {%endif%}
+      {% if data8 %}
+    <div style="background-color:#534c47; height:5px; width:100%;"class="mb-2"></div>
+
+    <li>
+
+      <h2 style="font-size: 1.5rem;">SOCIAL ACTIVITY:</h2>
+
+      {% for val in data8 %}
+      <dl class="row">
+        <dt class="col-sm-3">{{val.social}}
+        <dd class="col-sm-9"> {{val.activity}} <p><a href="{{val.link}}">More information</a></p> </dd>
+      </dl>
+    </li>
+    <hr class="hr hr-blurry my-4">
+    {% endfor %}
+    {%endif%}
+  </ul>
+  </div>
+</div>
+</div>
+
+
+
+{% endif %}
+{% endblock %}
+

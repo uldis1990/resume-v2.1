@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Get started with CV">
+    <meta name="author" content="Uldis Upenieks LV">
+    <link rel="icon" href="/static/logoCV.png" sizes="30x30" type="image/png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+      />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+      />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+      rel="stylesheet"
+      />
+    <!--tw-elements-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+    <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    <!--style real time modification-->
+    <script src="{{ url_for('static', filename='/static/style_mod.js') }}"></script>
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+  <body>
+    <!-- Main navigation container -->
+    <nav  class="navbar navbar-dark bg-dark" >
+      <div class="flex w-full flex-wrap items-center justify-between px-3">
+        <!-- Hamburger button for mobile view -->
+        <button
+          class="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0  lg:hidden"
+          type="button"
+          data-te-collapse-init
+          data-te-target="#navbarSupportedContent1"
+          aria-controls="navbarSupportedContent1"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <!-- Hamburger icon -->
+          <span class="[&>svg]:w-7">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="h-7 w-7">
+              <path
+                fill-rule="evenodd"
+                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                clip-rule="evenodd" />
+            </svg>
+          </span>
+        </button>
+        <!-- Collapsible navigation container -->
+        <div
+          class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
+          id="navbarSupportedContent1"
+          data-te-collapse-item>
+          <!-- Left navigation links -->
+          <ul
+            class="list-style-none mr-auto flex flex-col pl-0 lg:flex-row" style="font-size: 1.3rem"
+            data-te-navbar-nav-ref>
+            <li>
+              <i class="fas fa-dragon"></i>
+            </li>
+            {% if session["user_id"] %}
+            <li class="mb-2 lg:mb-0 lg:pr-2"  data-te-nav-item-ref>
+              <!-- Dashboard link -->
+              <a
+                class=" text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
+                href="{{url_for('cv_page')}}"
+                data-te-nav-link-ref
+                >Resume</a
+                >
+            </li>
+
+            <!-- Team link -->
+            <li class="mb-2 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+              <a
+                class=" text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                href="{{url_for('project_page')}}"
+                data-te-nav-link-ref
+                >Projects</a
+                >
+            </li>
+            <!-- Projects link -->
+            <li class="mb-2 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+              <a
+                class=" text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                href="{{url_for('work_page')}}"
+                data-te-nav-link-ref
+                >Work experience</a>
+            </li>
+            <!-- Team link -->
+            <li class="mb-2 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+              <a
+                class="text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                href="{{url_for('edu_page')}}"
+                data-te-nav-link-ref
+                >Education</a
+                >
+            </li>
+            <li class="mb-2 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+              <a
+                class=" text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                href="{{url_for('skils_page')}}"
+                data-te-nav-link-ref
+                >Skills</a
+                >
+            </li>
+
+            <li class="mb-2 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+              <a
+                class=" text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                href="{{url_for('gols_page')}}"
+                data-te-nav-link-ref
+                >Goals
+                </a
+                >
+            </li>
+
+            <li class="mb-2 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+              <a
+                class="text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                href="{{url_for('hob_page')}}"
+                data-te-nav-link-ref
+                >Hobbies
+                </a
+                >
+
+            </li>
+            <li class="mb-2 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+              <a
+                class=" text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                href="{{url_for('ref_page')}}"
+                data-te-nav-link-ref
+                >References
+                </a
+                >
+            </li>
+            <li class="mb-2 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
+              <a
+                class=" text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                href="{{url_for('social_page')}}"
+                data-te-nav-link-ref
+                >Social activity
+                </a
+                >
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+        <!-- Logo -->
+
+        <!-- Right elements -->
+        {% if session["token"]%}
+        <div>
+          <li>
+
+
+          <a
+          class="text-xl me-3 text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+          href="{{url_for('logout')}}"
+          data-te-nav-link-ref
+          >End</a>
+
+            {%endif%}
+        {% if session["user_id"]%}
+        {% if not session["token"]%}
+       <!-- Second dropdown container -->
+       <div class="relative " id ="profile" data-te-dropdown-ref>
+        <!-- Second dropdown trigger -->
+
+        <a
+          class="hidden-arrow  items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
+          href="#"
+          id="dropdownMenuButton2"
+          role="button"
+          data-te-dropdown-toggle-ref
+          aria-expanded="false">
+          <!-- User avatar -->
+          <img
+            src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg"
+            class="rounded-full"
+            style="height: 25px; width: 25px"
+            alt=""
+            loading="lazy" />
+        </a>
+
+        <!-- Second dropdown menu -->
+        <ul
+          class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
+          aria-labelledby="dropdownMenuButton2"
+          data-te-dropdown-menu-ref>
+          <!-- Second dropdown menu items -->
+          <li>
+            <a
+              class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+              href="{{url_for('profile_page')}}"
+              data-te-dropdown-item-ref
+              >Profile</a
+              >
+          </li>
+          <li>
+            <a
+              class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+              href="{{url_for('tok_page')}}"
+              data-te-dropdown-item-ref
+              >Create a code</a
+              >
+          </li>
+
+          <li>
+            <a
+              class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+              href="{{url_for('logout')}}"
+              data-te-dropdown-item-ref
+              >Logout</a
+              >
+          </li>
+        </ul>
+
+
+
+
+
+
+      </div>
+      {% endif %}
+          {% else %}
+       <div>
+          <li>
+
+
+          <a
+          class="text-xl me-3 text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+          href="#"
+          data-te-nav-link-ref
+          >Thanks-developers !</a>
+
+            <a
+              class="text-xl me-3 text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+              href="{{url_for('register_page')}}"
+              data-te-nav-link-ref
+              >Register</a>
+
+  <a
+     class="text-xl me-3 text-neutral-200 hover:text-neutral-400 focus:text-neutral-400 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+     href="{{url_for('login_page')}}"
+     data-te-nav-link-ref
+     >Log in</a
+     >
+
+    </li>
+</div>
+          <!-- Container with two dropdown menus
+          <div class="relative" data-te-dropdown-ref>
+            #First dropdown trigger
+            <a
+              class="hidden-arrow mr-4 flex items-center text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+              href="#"
+              id="dropdownMenuButton1"
+              role="button"
+              data-te-dropdown-toggle-ref
+              aria-expanded="false">
+              #Dropdown trigger icon
+              <span class="[&>svg]:w-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="h-5 w-5">
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+               #Notification counter
+              <span
+                class="absolute -mt-2.5 ml-2 rounded-[0.37rem] bg-danger px-[0.45em] py-[0.2em] text-[0.6rem] leading-none text-white"
+                >1</span
+                >
+            </a>
+            # First dropdown menu
+            <ul
+              class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
+              aria-labelledby="dropdownMenuButton1"
+              data-te-dropdown-menu-ref>
+              # First dropdown menu items
+              <li>
+                <a
+                  class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+                  href="#"
+                  data-te-dropdown-item-ref
+                  >Action</a
+                  >
+              </li>
+              <li>
+                <a
+                  class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+                  href="#"
+                  data-te-dropdown-item-ref
+                  >Another action</a
+                  >
+              </li>
+              <li>
+                <a
+                  class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
+                  href="#"
+                  data-te-dropdown-item-ref
+                  >Something else here</a
+                  >
+              </li>
+            </ul>
+          </div> -->
+          {% endif %}
+      </div>
+    </nav>
+
+    <!-- Error msg-->
+    {% with messages = get_flashed_messages(with_categories= true) %}
+  {% if messages %}
+    <ul class=flashes>
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </symbol>
+        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+        </symbol>
+        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+      </svg>
+    {% for category,message in messages %}
+      <li>
+        <div class="alert alert-{{category}} alert-dismissible d-flex align-items-center" role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+          <div>
+            {{ message[0] }}
+            <button type="button" class="btn-close " data-bs-dismiss="alert" aria-label="Close"><strong>X</strong></button>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+     <!--Main content-->
+    <main>
+
+      {% block content %}
+      {% endblock %}
+
+    </main>
+    <!-- Footer -->
+<footer class="text-center text-lg-start bg-light text-muted">
+  <!-- Section: Social media -->
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <!-- Left -->
+    <div class="me-5 d-none d-lg-block">
+      <span>Get connected with developers on social networks:</span>
+    </div>
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>About the web page
+          </h6>
+          <p>
+            This page is intended for every student so that they can create their resume more easily
+
+          </p>
+        </div>
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Developers projects
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">XXXXX</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">XXXXX</a>
+          </p>
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Useful links
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">XXXXXXX</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">XXXXXXX</a>
+          </p>
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contact developers</h6>
+          <p><i class="fas fa-home me-3"></i> Latvia</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            uldis.uplife@outlook.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i> +371</p>
+
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2023 Copyright:
+    <a class="text-reset fw-bold" href="#">Uldis at Developers UU</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+{% if session["user_id"]%}
+
+
+    <!--Activity checker for logout automation-->
+  <script>
+  let start=(function activityWatcher(){
+      //since the user was active.
+      var secondsSinceLastActivity = 0;
+      var maxInactivity = (60*5 );
+      setInterval(function(){
+          secondsSinceLastActivity++;
+
+          if (secondsSinceLastActivity == ((60*5)-10)){
+
+            const parent= document.querySelector('nav');
+            const elementNode1= document.createElement('ul');
+            elementNode1.classList.add("flashes");
+            elementNode1.setAttribute("id","logoutt");
+            const elementNode2= document.createElement('li');
+            const elementNode3= document.createElement('div');
+            elementNode3.classList.add("alert", "alert-info", "d-flex", "align-items-center");
+            elementNode3.setAttribute("role","alert");
+            const textNode= document.createTextNode('Inactivity detected. For information security, you will be logged out after: 10 seconds');
+            elementNode3.appendChild(textNode);
+            elementNode2.appendChild(elementNode3);
+            elementNode1.appendChild(elementNode2);
+            parent.after(elementNode1);};
+
+          //if the user has been inactive or idle for longer
+          //then the seconds specified in maxInactivity
+          if(secondsSinceLastActivity > maxInactivity){
+
+              //Redirect them to your logout page
+              location.href = "/logout";
+          }
+      },1000);
+
+      //The function that will be called whenever a user is active
+      function activity(){
+          //reset the secondsSinceLastActivity variable
+          //back to 0
+          secondsSinceLastActivity = 0;
+          if (document.getElementById('logoutt')){
+            const warning = document.getElementById('logoutt');
+            warning.remove();};
+      }
+
+
+      //An array of DOM events that should be interpreted as
+      //user activity.
+      var activityEvents = [
+          'mousedown', 'mousemove', 'keydown',
+          'scroll', 'touchstart'
+      ];
+
+      //add these events to the document.
+      //register the activity function as the listener parameter.
+      activityEvents.forEach(function(eventName){
+          document.addEventListener(eventName, activity, true);
+      })})();
+
+  function delProf(){
+    if (document.getElementById('profile')){
+            const profile = document.getElementById('profile');
+            profile.remove();}
+  };
+</script>
+
+{% endif %}
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+    <!--tw-elements-->
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+  </body>
+</html>
