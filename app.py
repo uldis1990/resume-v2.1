@@ -1,10 +1,10 @@
 #import os
 #import random
 #import string
-from flask import Flask,render_template, flash,redirect,request
+from flask import( Flask,render_template,flash,redirect,request,url_for)
 #(
   
-   # url_for,
+   # ,
    # ,
    # ,
    # ,
@@ -144,8 +144,9 @@ def home_page():
         else:
             return render_template("index.html")
           
-if __name__=="__main__":
-  app.run(host='0.0.0.0',debug=True)
+
+
+
 """
 @app.route("/cv", methods=["GET"])
 @login_required
@@ -897,4 +898,5 @@ def reset_password_confirm(reset_key):
 
     return render_template('reset_password.html',form=form)
     """
-   
+if __name__=="__main__":
+  app.run(host='0.0.0.0',debug=True) 

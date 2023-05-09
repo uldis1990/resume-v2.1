@@ -3,3 +3,4 @@ Gunicorn
 flask-wtf 
 wtforms 
 flask-uploads
+email_validator
