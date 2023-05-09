@@ -1,19 +1,19 @@
 #import os
 #import random
 #import string
-from flask import Flask,render_template, flash
+from flask import Flask,render_template, flash,redirect,request
 #(
   
    # url_for,
-   # redirect,
-   # request,
+   # ,
+   # ,
    # ,
    # session,
    # send_from_directory,
 #)
-#from forms import (
- #   RegisterForm,
-  #  LoginForm,
+from forms import (
+    RegisterForm,
+    LoginForm)
    # ProjectForm,
     #WorkForm,
     #EduForm,
@@ -99,7 +99,7 @@ def get_read_only_info(code):
     #user_id = db.execute("SELECT user_id FROM token_add WHERE token_id = ?", code)
     #if user_id:
         #time = db.execute("SELECT exp_date FROM token_add WHERE token_id = ?", code)
-current_date = datetime.now().date()
+  current_date = datetime.now().date()
 #target_date = datetime.strptime(time[0]["exp_date"], "%Y-%m-%d").date()
         #if current_date > target_date:
           #  db.execute("DELETE FROM token_add WHERE token_id= ? ",code)
@@ -165,7 +165,7 @@ def cv_page():
     data11 = db.execute("SELECT * FROM  soc WHERE user_id= ?",user_id)
 
     return render_template("cv.html",data=data,data1=data1,data2=data2,data3=data3,data4=data4,data5=data5,data6=data6,data7=data7,data8=data8,data9=data9,data10=data10,data11=data11)
-
+"""
 @app.route("/register", methods=["GET", "POST"])
 def register_page():
     form = RegisterForm()
@@ -235,14 +235,14 @@ def login_page():
 
 @app.route("/logout")
 def logout():
-    """Log user out"""
+    #Log user out
 
     # Forget any user_id
     session.clear()
 
     # Redirect user to home page
     return redirect("/")
-
+"""
 
 @app.route("/project", methods=["GET", "POST"])
 @login_required

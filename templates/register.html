@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register Page
+{% endblock %}
+
+{% block content %}
+<div class= "container">
+<form method="POST", class="d-grid">
+    {{form.hidden_tag()}}
+    {{form.username.label()}}
+    {{form.username(class= "form-control",placeholder='username')}}
+    {{form.email.label()}}
+    {{form.email(class= "form-control",placeholder='e-mail')}}
+    {{form.password.label()}}
+    {{form.password(class= "form-control")}}
+    {{form.password2.label()}}
+    {{form.password2(class= "form-control")}}
+    {{form.submit(class= "btn btn-outline-primary")}}
+
+</form>
+</div>
+{% endblock %}

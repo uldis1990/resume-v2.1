@@ -1,7 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+
+{% block content %}
 <div class="row p-2 row-cols-md-2">
     <div class="col ">
       <div class="card-fluid ">
-        <img src="/uploads/gea.jpg" class=" card-img-top img-thumbnail rounded mx-auto d-block" alt="foto hay"/>
+        <img src="/static/gea.jpg" class=" card-img-top img-thumbnail rounded mx-auto d-block" alt="foto hay"/>
       </div>
     </div>
     <div class="col ">
@@ -35,3 +43,4 @@ If you are an employer and you want to view a potential employee's CV, request a
 
 
   </div>
+{% endblock %}
