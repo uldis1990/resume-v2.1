@@ -1,6 +1,7 @@
 #import os
 #import random
 #import string
+from database import cnx
 from flask import( Flask,render_template,flash,redirect,request,url_for)
 #(
   
@@ -53,6 +54,7 @@ app = Flask(__name__)
 # Configure CS50 Library to use SQLite database
 #db = SQL("sqlite:///users.db")
 count = 1
+cursor = None
 """
 @app.after_request
 def after_request(response):
@@ -61,7 +63,6 @@ def after_request(response):
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
-
 
 def login_required(f):
    
@@ -77,9 +78,39 @@ def login_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
-
-
 """
+def create_dict_with_numeric_keys(values_tuple):
+    dict_with_numeric_keys = {}
+    for index, value in enumerate(values_tuple):
+        dict_with_numeric_keys[index] = value
+    return dict_with_numeric_keys
+  
+def convert_tuple_to_dict(tuples_list):
+    result_list = []
+    for tuple_item in tuples_list:
+        dict_item = {}
+        for index in range(len(tuple_item)):
+            dict_item[index] = tuple_item[index]
+        result_list.append(dict_item)
+    return result_list
+  
+"""Function prototype >> execude(query, (tuple_values))
+  to execute query as strings values implement (0),(1),(2)...
+  returns list of dic with numeric keys"""
+  #formats DATE type to specific or defalt =
+  # format datetime.datetime(2023, 5, 10, 22, 48, 53)  
+def execude(query,(tuple_values)):
+    d = create_dict_with_numeric_keys((tuple_values))
+    inpuut_string = query
+    output_string = ''
+    for i in range(len(d)):
+      output_string = input_string.replace('(i)', (d.get('i')))
+    #startdb 
+    cursor = cnx.cursor()
+    cursor.execute(output_string)
+    results = cursor.fetchall()
+    return convert_tuple_to_dict(results)
+  
 @app.route("/coderr")
 def code_error():
 
@@ -95,28 +126,28 @@ def code_error():
         return redirect(url_for("home_page"))
       
 def get_read_only_info(code):
-
-    #user_id = db.execute("SELECT user_id FROM token_add WHERE token_id = ?", code)
-    #if user_id:
-        #time = db.execute("SELECT exp_date FROM token_add WHERE token_id = ?", code)
+  user_id = execude("SELECT user_id FROM token_add WHERE token_id = (0) ",code)   
+  if user_id:
+      time = execute("SELECT exp_date FROM token_add WHERE token_id = (0)", code)
   current_date = datetime.now().date()
-#target_date = datetime.strptime(time[0]["exp_date"], "%Y-%m-%d").date()
-        #if current_date > target_date:
-          #  db.execute("DELETE FROM token_add WHERE token_id= ? ",code)
-          # return False
-        #else:
-            #reuse= db.execute("SELECT reuse_count FROM token_add WHERE token_id = ?", code)
-           # if reuse[0]["reuse_count"] >0:
-           #     reuse=reuse[0]["reuse_count"]
-            #    reuse = reuse -1
-             #   db.execute(" UPDATE token_add SET reuse_count=? WHERE token_id = ? ",reuse,code)
-             #   user_id = db.execute("SELECT user_id FROM token_add WHERE token_id = ?", code)
-             #   session["user_id"]=user_id[0]["user_id"]
-             #   session["token"]= code
-  return True
-            #else:
-              #  db.execute("DELETE FROM token_add WHERE token_id= ? ",code)
-               # return False
+  target_date = datetime.strptime(time[0]["0"], "%Y-%m-%d").date()
+      if current_date > target_date:
+          execute("DELETE FROM token_add WHERE token_id= (0) ",code)
+          return Falsee
+      else:
+          reuse= execute("SELECT reuse_count FROM token_add WHERE token_id = (0)", code)
+          if reuse[0]["0"] >0:
+              reuse=reuse[0]["0"]
+              reuse = reuse -1
+              execute(" UPDATE token_add SET reuse_count= (0) WHERE token_id = (1) ",(reuse,code))
+              user_id = execute("SELECT user_id FROM token_add WHERE token_id = (0)", code)
+              session["user_id"]=user_id[0]["0"]
+              session["token"]= code
+              
+              return True
+            else:
+              db.execute("DELETE FROM token_add WHERE token_id= ? ",code)
+              return False
    # else:
        # return False
 
@@ -134,7 +165,8 @@ def home_page():
             flash([f"Incorrect code please try again {count} !"], category)
             count = count+1
             if count > 3 :
-
+                cursor.close()
+                cnx.close()
                 return redirect(url_for("code_error"))
             else:
                 return render_template("index.html")
@@ -197,6 +229,8 @@ def register_page():
                 )
                 # Remember which user has logged in
                 session["user_id"] = rows[0]["id"]
+                #startdb 
+                cursor = cnx.cursor()
                 # Redirect user to home page
                 return redirect(url_for("home_page"))
         if form.errors != {}:
@@ -227,6 +261,8 @@ def login_page():
             else:
                 # Remember which user has logged in
                 session["user_id"] = rows[0]["id"]
+                # startdb
+                cursor = cnx.cursor()
                 # Redirect user to home page
 
                 return redirect(url_for("cv_page"))
@@ -237,7 +273,9 @@ def login_page():
 @app.route("/logout")
 def logout():
     #Log user out
-
+    # endwork in db close the cursor and connection 
+    cursor.close()
+    cnx.close()
     # Forget any user_id
     session.clear()
 
