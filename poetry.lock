@@ -114,6 +114,30 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "mysql-connector-python"
+version = "8.0.33"
+description = "MySQL driver written in Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+protobuf = ">=3.11.0,<=3.20.3"
+
+[package.extras]
+compression = ["lz4 (>=2.1.6,<=4.3.2)", "zstandard (>=0.12.0,<=0.19.0)"]
+dns-srv = ["dnspython (>=1.16.0,<=2.3.0)"]
+gssapi = ["gssapi (>=1.6.9,<=1.8.2)"]
+
+[[package]]
+name = "protobuf"
+version = "3.20.3"
+description = "Protocol Buffers"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "sqlalchemy"
 version = "2.0.12"
 description = "Database Abstraction Library"
@@ -187,7 +211,7 @@ email = ["email-validator"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "d21d64ab88e7328457eab96e5ae95c65f36789cda302a2749a3bb857bb40990e"
+content-hash = "74b73b15bf416a97e6b783d3f99f985132388eea8b03e4d90321ceeb41088ff4"
 
 [metadata.files]
 blinker = []
@@ -200,6 +224,8 @@ greenlet = []
 itsdangerous = []
 jinja2 = []
 markupsafe = []
+mysql-connector-python = []
+protobuf = []
 sqlalchemy = []
 typing-extensions = []
 werkzeug = []

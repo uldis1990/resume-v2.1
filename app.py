@@ -1,7 +1,8 @@
 #import os
 #import random
 #import string
-from database import cnx
+
+from database import 
 from flask import( Flask,render_template,flash,redirect,request,url_for)
 #(
   
@@ -54,8 +55,8 @@ app = Flask(__name__)
 # Configure CS50 Library to use SQLite database
 #db = SQL("sqlite:///users.db")
 count = 1
-cursor = None
-"""
+
+
 @app.after_request
 def after_request(response):
     #Ensure responses aren't cached
@@ -65,20 +66,15 @@ def after_request(response):
     return response
 
 def login_required(f):
-   
-    Decorate routes to require login.
-
-    https://flask.palletsprojects.com/en/1.1.x/patterns/viewdecorators/
+  """Decorate routes to require login.     https://flask.palletsprojects.com/en/1.1.x/patterns/viewdecorators/ """
     
-
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if session.get("user_id") is None:
-            return redirect("/login")
-        return f(*args, **kwargs)
-
+  @wraps(f)
+  def decorated_function(*args, **kwargs):
+    if session.get("user_id") is None:
+      return redirect("/login")
+      return f(*args, **kwargs)
     return decorated_function
-"""
+
 def create_dict_with_numeric_keys(values_tuple):
     dict_with_numeric_keys = {}
     for index, value in enumerate(values_tuple):
@@ -99,14 +95,13 @@ def convert_tuple_to_dict(tuples_list):
   returns list of dic with numeric keys"""
   #formats DATE type to specific or defalt =
   # format datetime.datetime(2023, 5, 10, 22, 48, 53)  
-def execude(query,(tuple_values)):
+def execude(query,tuple_values):
     d = create_dict_with_numeric_keys((tuple_values))
     inpuut_string = query
     output_string = ''
     for i in range(len(d)):
       output_string = input_string.replace('(i)', (d.get('i')))
-    #startdb 
-    cursor = cnx.cursor()
+    
     cursor.execute(output_string)
     results = cursor.fetchall()
     return convert_tuple_to_dict(results)
@@ -131,25 +126,24 @@ def get_read_only_info(code):
       time = execute("SELECT exp_date FROM token_add WHERE token_id = (0)", code)
   current_date = datetime.now().date()
   target_date = datetime.strptime(time[0]["0"], "%Y-%m-%d").date()
-      if current_date > target_date:
-          execute("DELETE FROM token_add WHERE token_id= (0) ",code)
-          return Falsee
-      else:
-          reuse= execute("SELECT reuse_count FROM token_add WHERE token_id = (0)", code)
-          if reuse[0]["0"] >0:
-              reuse=reuse[0]["0"]
-              reuse = reuse -1
-              execute(" UPDATE token_add SET reuse_count= (0) WHERE token_id = (1) ",(reuse,code))
-              user_id = execute("SELECT user_id FROM token_add WHERE token_id = (0)", code)
-              session["user_id"]=user_id[0]["0"]
-              session["token"]= code
-              
-              return True
-            else:
-              db.execute("DELETE FROM token_add WHERE token_id= ? ",code)
-              return False
-   # else:
-       # return False
+  if current_date > target_date:
+    execute("DELETE FROM token_add WHERE token_id= (0) ",code)
+    return False
+  else:
+    reuse= execute("SELECT reuse_count FROM token_add WHERE token_id = (0)", code)
+    if reuse[0]["0"] >0:
+      reuse=reuse[0]["0"]
+      reuse = reuse -1
+      execute(" UPDATE token_add SET reuse_count= (0) WHERE token_id = (1) ",(reuse,code))
+      user_id = execute("SELECT user_id FROM token_add WHERE token_id = (0)", code)
+      session["user_id"]=user_id[0]["0"]
+      session["token"]= code
+      return True
+    else:
+      execute("DELETE FROM token_add WHERE token_id= ? ",code)
+      return False
+  if not user_id:
+    return False
 
 @app.route("/", methods=["GET", "POST"])
 
@@ -176,36 +170,32 @@ def home_page():
         else:
             return render_template("index.html")
           
-
-
-
-"""
 @app.route("/cv", methods=["GET"])
 @login_required
 def cv_page():
     user_id = session["user_id"]
-    data = db.execute("SELECT * FROM  users WHERE users.id= ?",user_id)
-    data1 = db.execute("SELECT * FROM  work_exp WHERE user_id= ?",user_id)
-    data2 = db.execute("SELECT * FROM  project WHERE user_id= ?",user_id)
-    data3 = db.execute("SELECT * FROM  gols WHERE user_id= ?",user_id)
-    data4 = db.execute("SELECT * FROM  skils WHERE user_id= ?",user_id)
-    data5 = db.execute("SELECT * FROM  education WHERE user_id= ?",user_id)
-    data6 = db.execute("SELECT * FROM  hobby WHERE user_id= ?",user_id)
-    data7 = db.execute("SELECT * FROM  referances WHERE user_id= ?",user_id)
-    data8 = db.execute("SELECT * FROM  social WHERE user_id= ?",user_id)
-    data9 = db.execute("SELECT * FROM  hobby WHERE user_id= ?",user_id)
-    data10 = db.execute("SELECT * FROM  lang WHERE user_id= ?",user_id)
-    data11 = db.execute("SELECT * FROM  soc WHERE user_id= ?",user_id)
+    data = execute("SELECT * FROM  users WHERE users.id= (0)",user_id)
+    data1 = execute("SELECT * FROM  work_exp WHERE user_id= (0)",user_id)
+    data2 = execute("SELECT * FROM  project WHERE user_id= (0)",user_id)
+    data3 = execute("SELECT * FROM  gols WHERE user_id= (0)",user_id)
+    data4 = execute("SELECT * FROM  skils WHERE user_id= (0)",user_id)
+    data5 = execute("SELECT * FROM  education WHERE user_id= (0)",user_id)
+    data6 = execute("SELECT * FROM  hobby WHERE user_id= (0)",user_id)
+    data7 = execute("SELECT * FROM  referances WHERE user_id= (0)",user_id)
+    data8 = execute("SELECT * FROM  social WHERE user_id= (0)",user_id)
+    data9 = execute("SELECT * FROM  hobby WHERE user_id= (0)",user_id)
+    data10 = execute("SELECT * FROM  lang WHERE user_id= (0)",user_id)
+    data11 = execute("SELECT * FROM  soc WHERE user_id= (0)",user_id)
 
     return render_template("cv.html",data=data,data1=data1,data2=data2,data3=data3,data4=data4,data5=data5,data6=data6,data7=data7,data8=data8,data9=data9,data10=data10,data11=data11)
-"""
+
 @app.route("/register", methods=["GET", "POST"])
 def register_page():
     form = RegisterForm()
     if request.method == "POST":
         if form.validate_on_submit():
-            user_to_check = db.execute(
-                "SELECT * FROM users WHERE username = ?", form.username.data
+            user_to_check = execute(
+                "SELECT * FROM users WHERE username = (0)", form.username.data
             )
             if len(user_to_check) == 1:
                 category = "danger"
@@ -216,19 +206,12 @@ def register_page():
                 hash = generate_password_hash(
                     form.password.data, method="pbkdf2:sha256", salt_length=8
                 )
-                db.execute(
-                    "INSERT INTO users (username,hash,email) VALUES (?,?,?)",
-                    form.username.data,
-                    hash,
-                    form.email.data,
-                )
+                execute("INSERT INTO users (username,hash,email) VALUES ((0),(1),(2))",(form.username.data,hash,form.email.data))
 
                 # Query database for id
-                rows = db.execute(
-                    "SELECT * FROM users WHERE username = ?", form.username.data
-                )
+                rows = execute("SELECT * FROM users WHERE username = (0)", form.username.data)
                 # Remember which user has logged in
-                session["user_id"] = rows[0]["id"]
+                session["user_id"] = rows[0]["0"]
                 #startdb 
                 cursor = cnx.cursor()
                 # Redirect user to home page
@@ -248,19 +231,17 @@ def login_page():
     if request.method == "POST":
         if form.validate_on_submit():
             # Query database for id
-            rows = db.execute(
-                "SELECT * FROM users WHERE username = ?", form.username.data
-            )
+            rows = execute("SELECT * FROM users WHERE username = (0)", form.username.data)
             # Ensure username exists and password is correct
             if len(rows) != 1 or not check_password_hash(
-                rows[0]["hash"], form.password.data
+                rows[0]["2"], form.password.data
             ):
                 category = "danger"
                 flash(["Incorrect password or username please try again !"], category)
                 return render_template("login.html", form=form)
             else:
                 # Remember which user has logged in
-                session["user_id"] = rows[0]["id"]
+                session["user_id"] = rows[0]["0"]
                 # startdb
                 cursor = cnx.cursor()
                 # Redirect user to home page
@@ -281,7 +262,7 @@ def logout():
 
     # Redirect user to home page
     return redirect("/")
-"""
+
 
 @app.route("/project", methods=["GET", "POST"])
 @login_required
@@ -303,26 +284,14 @@ def project_page():
                 file_name = get_random_string(16)
                 uploaded_file.save(os.path.join(app.config["UPLOAD_FOLDER"], file_name))
 
-            db.execute(
-                "INSERT INTO project VALUES (?,?,?,?,?,?,?,?,?,?)",
-                user_id,
-                form.project.data,
-                form.project_loc.data,
-                form.type.data,
-                form.gool.data,
-                file_name,
-                form.about_project.data,
-                form.start_date.data,
-                form.end_date.data,
-                form.link_project.data,
-            )
+            execute("INSERT INTO project VALUES ((0),(1),(2),(3),(4),(5),(6),(7),(8),(9))",        (user_id,form.project.data,form.project_loc.data,form.type.data,form.gool.data,file_name,form.about_project.data,form.start_date.data,form.end_date.data,form.link_project.data))
             return redirect(url_for("project_page"))
         else:
             return render_template("project.html")
     else:
         # alow akses to data without login get user id bay pasword ?
 
-        projects = db.execute("SELECT * FROM project WHERE user_id= ? ", user_id)
+        projects = execute("SELECT * FROM project WHERE user_id= (0) ", user_id)
 
         return render_template("project.html",projects=projects)
 
@@ -332,7 +301,7 @@ def get_random_string(length):
     result_str = "".join(random.choice(string.ascii_letters) for i in range(length))
     return result_str
 
-
+"""
 def validate_image(stream):
     header = stream.read(512)
     stream.seek(0)
@@ -340,14 +309,14 @@ def validate_image(stream):
     if not format:
         return None
     return "." + (format if format != "jpeg" else "jpg")
-
+"""
+# render image from file
 @app.route("/uploads/<filename>")
 def upload(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 @app.route("/work", methods=["GET", "POST"])
 @login_required
-
 def work_page():
     form = WorkForm()
     user_id = session["user_id"]
@@ -365,18 +334,7 @@ def work_page():
                 file_name = get_random_string(14)
                 uploaded_file.save(os.path.join(app.config["UPLOAD_FOLDER"], file_name))
 
-            db.execute(
-                "INSERT INTO work_exp  VALUES (?,?,?,?,?,?,?,?,?)",
-                user_id,
-                form.company.data,
-                form.comp_loc.data,
-                form.position.data,
-                form.about_work.data,
-                file_name,
-                form.start_date.data,
-                form.end_date.data,
-                form.link_comp.data,
-            )
+            execute("INSERT INTO work_exp  VALUES ((0),(1),(2),(3),(4),(5),(6),(7),(8))",   (user_id,form.company.data,form.comp_loc.data,form.position.data,form.about_work.data,file_name,form.start_date.data,form.end_date.data,form.link_comp.data))
             return redirect(url_for("work_page"))
         else:
             return render_template("work.html")
@@ -384,13 +342,12 @@ def work_page():
         # alow akses to data without login get user id bay pasword ?
         # render data from db
 
-        work_exp = db.execute("SELECT * FROM work_exp WHERE user_id= ? ", user_id)
+        work_exp = execute("SELECT * FROM work_exp WHERE user_id= (0) ", user_id)
         return render_template("work.html", work_exp=work_exp)
 
 
 @app.route("/edu", methods=["GET", "POST"])
 @login_required
-
 def edu_page():
     form = EduForm()
     user_id = session["user_id"]
@@ -408,26 +365,14 @@ def edu_page():
                 file_name = get_random_string(14)
                 uploaded_file.save(os.path.join(app.config["UPLOAD_FOLDER"], file_name))
 
-            db.execute(
-                "INSERT INTO education  VALUES (?,?,?,?,?,?,?,?,?,?)",
-                user_id,
-                form.school.data,
-                form.school_loc.data,
-                form.type.data,
-                form.grade.data,
-                file_name,
-                form.about_edu.data,
-                form.start_date.data,
-                form.end_date.data,
-                form.link_edu.data,
-            )
+            execute("INSERT INTO education  VALUES ((0),(1),(2),(3),(4),(5),(6),(7),(8),(9))"(user_id,form.school.data,form.school_loc.data,form.type.data,form.grade.data,file_name,form.about_edu.data,form.start_date.data,form.end_date.data,form.link_edu.data))
             return redirect(url_for("edu_page"))
         else:
             return render_template("education.html")
     else:
         # alow akses to data without login get user id bay pasword ?
         # render data from db
-        education = db.execute("SELECT * FROM education WHERE user_id= ? ", user_id)
+        education = execute("SELECT * FROM education WHERE user_id= (0) ", user_id)
         return render_template("education.html", education=education)
 
 
@@ -935,6 +880,6 @@ def reset_password_confirm(reset_key):
         return redirect(url_for('login'))
 
     return render_template('reset_password.html',form=form)
-    """
+    
 if __name__=="__main__":
   app.run(host='0.0.0.0',debug=True) 

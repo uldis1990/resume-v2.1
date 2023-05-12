@@ -4,7 +4,7 @@ from datetime import datetime
 # create a connection to the database with SSL/TLS encryption
 
 # create a cursor object on login or true token for executing queries 
-cursor = cnx.cursor()
+#cursor = cnx.cursor()
 #s='users'
 # execute a query
 #query = f'SELECT * FROM {s}'
