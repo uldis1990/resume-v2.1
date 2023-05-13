@@ -6,3 +6,5 @@ flask-uploads
 email_validator
 sqlalchemy 
 pymysql
+wheel
+functools

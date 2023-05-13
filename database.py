@@ -14,7 +14,7 @@ from datetime import datetime
 # build a dynamic query with string concatenation
 #query = 'SELECT * FROM ' + table_name
 
-query = 'SELECT * FROM users'
+"""query = 'SELECT * FROM users'
 cursor.execute(query)
 
 # fetch the results and print them
@@ -24,4 +24,4 @@ for row in cursor:
 #returns list of tuples 
 # close the cursor and connection
 cursor.close()
-cnx.close()
+cnx.close()"""
